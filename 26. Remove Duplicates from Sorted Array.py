@@ -1,5 +1,6 @@
 #took 12 mins
 
+
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
 
@@ -11,4 +12,4 @@ class Solution:
             nums[last] = nums[i]
 
         
-        return last + 1
+        return last + 1 #as last is 0 based index
