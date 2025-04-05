@@ -1,48 +1,22 @@
-#initial recusrsive thought and approach did not work becuase one direction approach
+#neetcode approach
 class Solution:
     def trap(self, height: List[int]) -> int:
 
-
-        def recurse(last, area):
-            cur = last + 1
-            if cur >= len(height) - 1:
-                return 0
-
-            inLast = cur
-
-            while height[cur] < height[last]:
-                if cur >= len(height):
-                    return 0
-            
-                if height[inLast] > height[cur]:
-                    cur = recurse(inLast, area)
-                inLast = cur
-                cur += 1
-
-            area += cur-last-1
-            return cur
-
+        if not height:
+            return 0
         
-        curr = 0
-        last = 0
-        totalArea = 0
+        l, r = 0, len(height)-1
+        leftMax, rightMax = height[l], height[r]
+        result = 0
 
-        while curr < len(height):
-            if height[curr] >= height[last]:
-                last = curr
-                curr += 1
+        while l < r:
+            if leftMax < rightMax:
+                l += 1 
+                leftMax = max(leftMax, height[l])
+                result += leftMax - height[l]
             else:
-                area = 0
-                curr = recurse(last, area)
-                last = curr
-                totalArea += area
+                r -= 1
+                rightMax = max(rightMax, height[r])
+                result += rightMax - height[r]
 
-
-
-
-        return totalArea
-        
-            
-            
-            
-        
+        return result
